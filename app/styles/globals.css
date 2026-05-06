@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+    --color-purple-brand: #4A2984;
+    --color-green-brand: #513386;
+    --color-yellow-brand: #FFDE1D;
+    --color-black-brand: #000000;
+    --color-white-brand: #FFFFFF;
+    --color-gray-brand: #D9D9D9;
+
+    --font-montserrat: var(--font-montserrat);
+}
+
+body {
+    font-family: var(--font-montserrat), sans-serif;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

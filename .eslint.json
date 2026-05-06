@@ -1,0 +1,3 @@
+{
+    "extends": "@abasync/eslint-config/next"
+}

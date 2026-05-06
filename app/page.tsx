@@ -1,65 +1,110 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import Navbar from "./components/Navbar";
+import Impacto from "./components/Impacto";
+import SobreNos from "./components/SobreNos";
+import Servicos from "./components/Servicos";
+import Portfolio from "./components/Portfolio";
+
+import { ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <>
+      <style>{`
+        @keyframes floatBob {
+          0%, 100% { transform: translateY(0px) rotate(-1deg); }
+          50%      { transform: translateY(-14px) rotate(1deg); }
+        }
+        .img-bob { animation: floatBob 5s ease-in-out infinite; }
+      `}</style>
+
+      <div className="bg-white text-slate-900 font-sans min-h-screen">
+        <main>
+          <Navbar variant="light" />
+
+          <section id="home" className="px-6 md:px-12 py-12 md:py-20 flex flex-col md:flex-row items-center justify-between max-w-7xl mx-auto min-h-[70vh] gap-12 mt-8 md:mt-0 relative overflow-hidden">
+
+            <div
+              className="absolute inset-0 pointer-events-none opacity-50"
+              style={{
+                backgroundImage: "radial-gradient(circle, rgba(94,42,132,0.045) 1px, transparent 1px)",
+                backgroundSize: "32px 32px",
+              }}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+            <div className="text-center md:text-left max-w-2xl relative z-10">
+              <h1 className="font-extrabold text-4xl sm:text-5xl md:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-tight">
+                SOLUÇÃO <br className="hidden md:block" />
+                <span className="text-purple-brand">EXCELÊNCIA</span> <br className="hidden md:block" />
+                INOVAÇÃO
+              </h1>
+
+              <p className="mt-6 text-gray-700 text-sm md:text-base leading-relaxed text-justify md:text-left max-w-xl mx-auto md:mx-0">
+                Desenvolvemos soluções sob medida para transformar seu negócio. Tecnologia de ponta com o preço acessível que você precisa para crescer.
+              </p>
+
+              <div className="flex flex-wrap gap-2 justify-center md:justify-start mt-6">
+                {["Sistemas Web", "Consultoria", "Tecnologia"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+                <Link
+                  href="/faleConosco"
+                  className="inline-flex px-8 py-3.5 bg-slate-950 text-white font-bold rounded-full shadow-lg hover:bg-purple-brand transition-all duration-300 items-center justify-center gap-2 group text-sm uppercase tracking-wider"
+                >
+                  Começar agora
+                  <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  href="/saibaMais"
+                  className="text-xs font-semibold uppercase tracking-widest text-purple-900/70 hover:text-purple-900 transition-colors"
+                >
+                  Saiba mais
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative w-72 h-72 sm:w-96 sm:h-96 md:w-100 md:h-100 shrink-0 flex items-center justify-center">
+
+              <div
+                className="absolute rounded-full opacity-60"
+                style={{
+                  width: '120%',
+                  height: '120%',
+                  background: "radial-gradient(circle, rgba(94,42,132,0.15) 0%, transparent 70%)",
+                }}
+              />
+
+              <div className="relative w-full h-full img-bob z-10">
+                <Image
+                  src="/assets/laptopCodigo.png"
+                  alt="Computador com chaves e código"
+                  fill
+                  sizes="(max-width: 768px) 260px, 400px"
+                  className="object-contain drop-shadow-xl"
+                  priority
+                />
+              </div>
+            </div>
+          </section>
+
+          <SobreNos />
+          <Servicos />
+          <Portfolio />
+          <Impacto />
+
+        </main>
+      </div>
+    </>
   );
 }
