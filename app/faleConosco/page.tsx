@@ -19,7 +19,6 @@ export default function FaleConosco() {
 
             <nav className="w-full max-w-7xl mx-auto flex items-center justify-between py-6 px-6 md:px-0 mb-12 relative z-50">
 
-                {/* Logo */}
                 <div className="relative w-32 md:w-40 h-auto">
                     <Link href="/">
                         <Image
@@ -32,7 +31,6 @@ export default function FaleConosco() {
                     </Link>
                 </div>
 
-                {/* Botão de Menu para telas menores (Mobile) */}
                 <button
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     className="md:hidden text-white p-2 focus:outline-none transition-transform duration-300 hover:text-yellow-400"
@@ -41,12 +39,11 @@ export default function FaleConosco() {
                     {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
                 </button>
 
-                {/* Menu Desktop (Visível em telas médias ou maiores) */}
                 <div className="hidden md:flex items-center gap-8 text-white font-medium">
                     <a href="/" className="hover:text-yellow-400 transition-colors">Home</a>
-                    <a href="#sobre" className="hover:text-yellow-400 transition-colors">Sobre nós</a>
+                    <a href="/saibaMais" className="hover:text-yellow-400 transition-colors">Sobre nós</a>
                     <a
-                        href="#fale-conosco"
+                        href="/faleConosco"
                         className="px-6 py-2 border-2 border-white rounded-full hover:bg-white hover:text-[#331c5e] transition-all duration-300"
                     >
                         Fale Conosco

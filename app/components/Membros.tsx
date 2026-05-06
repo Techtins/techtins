@@ -2,9 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, X, Users } from "lucide-react";
-
-// ─── Tipos e Interfaces ──────────────────────────────────────────────────────
+import { ChevronLeft, ChevronRight, X, Users, MapPin } from "lucide-react";
 
 export interface DiretoriaItem {
     id: number;
@@ -52,7 +50,6 @@ export const diretoria: DiretoriaItem[] = [
         setor: "Secretaria Executiva",
         foto: null,
         responsabilidades: "Gestão documental, atas, comunicados e agenda institucional.",
-        departamentoSecundario: "Secretaria Executiva",
     },
     {
         id: 4,
@@ -97,7 +94,6 @@ export const diretoria: DiretoriaItem[] = [
         setor: "Conselho Fiscal",
         foto: null,
         responsabilidades: "Fiscalização das contas, conformidade financeira e auditoria interna.",
-
     },
 ];
 
@@ -150,7 +146,7 @@ function Avatar({ foto, nome, gradientFrom, gradientTo, size = "md" }: any) {
 
     return (
         <div className="rounded-full shrink-0 overflow-hidden flex items-center justify-center shadow-lg relative"
-            style={{ width: dim, height: dim, background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`, boxShadow: `0 4px 20px ${gradientFrom}55` }}>
+            style={{ width: dim, height: dim, background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})`, boxShadow: `0 4px 20px ${gradientFrom}33` }}>
             {foto ? <Image src={foto} alt={nome} fill className="object-cover" sizes={`${dim}px`} /> :
                 <span className="font-montserrat font-bold text-white select-none" style={{ fontSize: fs }}>{getInitials(nome)}</span>}
         </div>
@@ -170,12 +166,12 @@ function NetworkOverlay({ leader, deptMembers, onClose }: { leader: DiretoriaIte
     });
 
     return (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 bg-purple-950/95 backdrop-blur-md">
-            <button onClick={onClose} className="absolute top-5 right-5 w-10 h-10 rounded-full border border-white/20 bg-white/8 text-white flex items-center justify-center hover:bg-white/15 transition-all"><X size={17} /></button>
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4 bg-black/98 backdrop-blur-md">
+            <button onClick={onClose} className="absolute top-5 right-5 w-10 h-10 rounded-full border border-gray-800 bg-gray-900/40 text-gray-400 flex items-center justify-center hover:bg-gray-800 hover:text-white transition-all"><X size={17} /></button>
             <div className="text-center mb-8">
-                <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-1 text-white/40">Rede de Conexões</p>
-                <h3 className="font-extrabold text-2xl md:text-3xl text-white uppercase">{isGeneral ? "Visão Geral da Empresa" : leader.departamentoSecundario}</h3>
-                <p className="text-sm mt-1 text-white/45">{leader.nome} · {leader.cargo}</p>
+                <p className="text-[10px] font-bold tracking-[0.3em] uppercase mb-1 text-gray-500">Rede de Conexões</p>
+                <h3 className="font-extrabold text-2xl md:text-3xl text-white uppercase tracking-tight">{isGeneral ? "Visão Geral da Empresa" : leader.departamentoSecundario}</h3>
+                <p className="text-sm mt-1 text-gray-400">{leader.nome} · <span className="text-purple-400">{leader.cargo}</span></p>
             </div>
             <div className="relative w-full max-w-lg md:max-w-2xl" style={{ aspectRatio: "1/1", maxHeight: "65vh" }}>
                 <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
@@ -189,12 +185,12 @@ function NetworkOverlay({ leader, deptMembers, onClose }: { leader: DiretoriaIte
                 {deptMembers.map((m, i) => (
                     <div key={m.id} className="absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer flex flex-col items-center" style={{ left: `${positions[i].x}%`, top: `${positions[i].y}%` }} onMouseEnter={() => setHoveredId(m.id)} onMouseLeave={() => setHoveredId(null)}>
                         {hoveredId === m.id && (
-                            <div className="absolute bottom-full mb-3 z-30 rounded-xl px-3 py-2 bg-[#140832]/98 border border-white/15 shadow-2xl">
+                            <div className="absolute bottom-full mb-3 z-30 rounded-xl px-3 py-2 bg-gray-900/95 border border-gray-800 shadow-2xl">
                                 <p className="font-bold text-white text-[11px] whitespace-nowrap">{m.nome}</p>
                                 <p className="text-[9px] whitespace-nowrap" style={{ color: DEPT_COLORS[m.departamento].accent }}>{m.cargo}</p>
                             </div>
                         )}
-                        <Avatar foto={m.foto} nome={m.nome} gradientFrom={hoveredId === m.id ? DEPT_COLORS[m.departamento].from : "rgba(255,255,255,0.1)"} gradientTo={hoveredId === m.id ? DEPT_COLORS[m.departamento].to : "rgba(255,255,255,0.05)"} size="sm" />
+                        <Avatar foto={m.foto} nome={m.nome} gradientFrom={hoveredId === m.id ? DEPT_COLORS[m.departamento].from : "rgba(255,255,255,0.08)"} gradientTo={hoveredId === m.id ? DEPT_COLORS[m.departamento].to : "rgba(255,255,255,0.03)"} size="sm" />
                     </div>
                 ))}
             </div>
@@ -213,8 +209,8 @@ export default function Membros() {
         : membros.filter((m) => m.departamento === overlay?.departamentoSecundario);
 
     return (
-        <div className="min-h-screen bg-[#0f0720] text-white p-6 md:p-12 font-montserrat overflow-x-hidden">
-            <div className="max-w-7xl mx-auto space-y-16">
+        <div className="min-h-screen bg-black text-white px-6 md:px-16 py-16 md:py-20 font-montserrat overflow-x-hidden">
+            <div className="max-w-7xl mx-auto space-y-20">
                 <section>
                     <SectionHeading label="Diretoria" onPrev={() => diretoriaRow.scroll("left", diretoria.length)} onNext={() => diretoriaRow.scroll("right", diretoria.length)} />
                     <div ref={diretoriaRow.ref} className="flex gap-6 overflow-x-auto pb-8 no-scrollbar">
@@ -223,6 +219,7 @@ export default function Membros() {
                         ))}
                     </div>
                 </section>
+
                 <section>
                     <SectionHeading label="Time de membros" onPrev={() => membrosRow.scroll("left", membros.length)} onNext={() => membrosRow.scroll("right", membros.length)} />
                     <div ref={membrosRow.ref} className="flex gap-6 overflow-x-auto pb-8 no-scrollbar">
@@ -242,14 +239,14 @@ export default function Membros() {
 
 function SectionHeading({ label, onPrev, onNext }: any) {
     return (
-        <div className="flex items-end justify-between mb-6">
+        <div className="flex items-end justify-between mb-8">
             <div>
-                <h2 className="font-black text-2xl md:text-4xl tracking-tighter uppercase">{label}</h2>
-                <div className="mt-2 h-1 w-12 rounded-full bg-purple-500" />
+                <h2 className="font-extrabold text-3xl md:text-5xl tracking-tight uppercase text-white leading-none">{label}</h2>
+                <div className="mt-3 h-1 w-12 rounded-full bg-yellow-400" />
             </div>
-            <div className="flex gap-2">
-                <button onClick={onPrev} className="p-2 rounded-full border border-white/10 hover:bg-white/5"><ChevronLeft size={20} /></button>
-                <button onClick={onNext} className="p-2 rounded-full border border-white/10 hover:bg-white/5"><ChevronRight size={20} /></button>
+            <div className="flex gap-3">
+                <button onClick={onPrev} className="p-2.5 rounded-full border border-gray-800 bg-gray-900/40 text-gray-400 hover:bg-gray-800 hover:text-white transition-all"><ChevronLeft size={20} /></button>
+                <button onClick={onNext} className="p-2.5 rounded-full border border-gray-800 bg-gray-900/40 text-gray-400 hover:bg-gray-800 hover:text-white transition-all"><ChevronRight size={20} /></button>
             </div>
         </div>
     );
@@ -259,17 +256,17 @@ function DiretoriaCard({ item, onClick }: { item: DiretoriaItem; onClick: () => 
     const ss = SETOR_STYLE[item.setor];
     const hasNet = !!item.departamentoSecundario;
     return (
-        <div onClick={hasNet ? onClick : undefined} className={`flex-none w-52 md:w-64 rounded-3xl p-6 border border-white/10 bg-white/5 transition-all ${hasNet ? "cursor-pointer hover:bg-white/10 hover:-translate-y-1" : ""}`}>
+        <div onClick={hasNet ? onClick : undefined} className={`flex-none w-52 md:w-64 rounded-3xl p-6 border border-gray-800 bg-gray-900/30 backdrop-blur-sm transition-all duration-300 ${hasNet ? "cursor-pointer hover:bg-gray-900/60 hover:-translate-y-1 hover:border-gray-700/80" : ""}`}>
             <Avatar foto={item.foto} nome={item.nome} gradientFrom={ss.from} gradientTo={ss.to} size="lg" />
             <div className="mt-4">
-                <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md mb-2 inline-block" style={{ background: ss.badge, color: ss.from }}>{item.setor}</span>
-                <h4 className="font-bold text-white text-base leading-tight">{item.nome}</h4>
-                <p className="text-xs text-white/40">{item.cargo}</p>
+                <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md mb-2 inline-block border border-transparent" style={{ background: ss.badge, color: ss.from }}>{item.setor}</span>
+                <h4 className="font-bold text-white text-base leading-tight mt-1">{item.nome}</h4>
+                <p className="text-xs text-gray-400 mt-0.5">{item.cargo}</p>
             </div>
-            <p className="mt-4 text-[11px] text-white/50 leading-relaxed line-clamp-3">{item.responsabilidades}</p>
+            <p className="mt-4 text-[11px] text-gray-500 leading-relaxed line-clamp-3">{item.responsabilidades}</p>
             {hasNet && (
-                <div className="mt-4 pt-4 border-t border-white/5 flex items-center gap-2 text-purple-400">
-                    <Users size={12} /><span className="text-[10px] font-bold uppercase">Explorar Rede</span>
+                <div className="mt-5 pt-4 border-t border-gray-800/60 flex items-center gap-2 text-purple-400">
+                    <Users size={14} /><span className="text-[10px] font-bold tracking-wider uppercase">Explorar Rede</span>
                 </div>
             )}
         </div>
@@ -279,14 +276,24 @@ function DiretoriaCard({ item, onClick }: { item: DiretoriaItem; onClick: () => 
 function MembroCard({ membro }: { membro: Membro }) {
     const c = DEPT_COLORS[membro.departamento];
     return (
-        <div className="flex-none w-48 md:w-56 rounded-3xl p-6 border border-white/5 bg-white/5 hover:bg-white/10 transition-all">
+        <div className="flex-none w-48 md:w-56 rounded-3xl p-6 border border-gray-800 bg-gray-900/30 backdrop-blur-sm hover:bg-gray-900/60 hover:border-gray-700/80 transition-all duration-300">
             <Avatar foto={membro.foto} nome={membro.nome} gradientFrom={c.from} gradientTo={c.to} size="md" />
-            <span className="text-[9px] font-bold uppercase mt-4 block" style={{ color: c.accent }}>{membro.departamento}</span>
+            <span className="text-[9px] font-bold uppercase tracking-wider mt-5 block" style={{ color: c.accent }}>{membro.departamento}</span>
             <h4 className="font-bold text-white text-sm mt-1">{membro.nome}</h4>
-            <p className="text-xs text-white/40">{membro.cargo}</p>
-            <p className="mt-3 text-[10px] text-white/30 line-clamp-2">{membro.responsabilidades}</p>
+            <p className="text-xs text-gray-400 mt-0.5">{membro.cargo}</p>
+            <p className="mt-4 text-[10px] text-gray-500 leading-relaxed line-clamp-2">{membro.responsabilidades}</p>
         </div>
     );
+}
+
+function useScrollRowScroll() {
+    const ref = useRef<HTMLDivElement>(null);
+    const scroll = useCallback((dir: "left" | "right", total: number) => {
+        if (!ref.current) return;
+        const w = 250;
+        ref.current.scrollBy({ left: dir === "right" ? w : -w, behavior: "smooth" });
+    }, []);
+    return { ref, scroll };
 }
 
 function useScrollRow() {
